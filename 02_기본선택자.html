@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>기본선택자</title>
+   <!-- 온라인 방식 -->
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+</head>
+<body>
+
+    <h1>기본선택자</h1>
+
+    <!--
+    jQuery 또한 마찬가지로
+    요소를 "선택" 해서 각종 "효과"를 주기 때문에
+    그 대상을 정확하게 찝어줘야한다!! (선택자 이용)
+    -->
+
+    <h3>* 아이디 선택자</h3>
+
+    <p>
+        특정 고유한 아이디값을 가진 요소 하나만을 선택하고자 할 때
+    </p>
+    
+    <h1 id="id1">ID1</h1>
+
+    <h2 id="id2">ID2</h2>
+    <script>
+        jQuery(document).ready(function(){
+
+            // - 순수 자바스크립트 방식
+            // document.getElementById("아이디명");
+            // 선택된 요소 객체의 속성에 . 으로 직접접근 후
+            // 값을 변경해주기 (대입을 통해)
+            document.getElementById("id1").style.color = "red";
+            document.getElementById("id1").innerHTML = "h1 변경";
+
+            // - jQuery 방식
+            // $("#아이디명")
+            // 선택된 요소 객체 메소드를 이용해서
+            // 값을 변경
+            $("#id2").css("color","pink");
+            $("#id2").html("h2 변경");
+            // .css() : 선택된 요소에 style 속성을 컨트롤
+            // .html() : 선택된 요소의 innerHTML 속성을 컨트롤
+
+            // * 주의할 점!!
+            //document.getElementById("id1").css("backguondColor", "yellow");
+            //$("id2").style.backgroundColor = "purle";
+            // - 자바스크립트 방식으로 요소를 선택하면
+            //   효과를 부여할 때에도 자바스크립트 구문을 써야함!!
+            // - 제이쿼리 방식으로 요소를 선택하면
+            //   효과를 부여할 때에도 제이쿼리 구문을 써야함!!
+            
+
+        });
+    </script>
+
+    <br>
+
+    <hr>
+
+    <h3>* 태그 선택자</h3>
+
+    <p>
+        특정 태그 종류인 요소들을 모두 선택하고자 할 때
+    </p>
+
+    <p>JAVA</p>
+    <p>ORACLE</p>
+    <p>JDBC</p>
+
+    <h5>HTML</h5>
+    <h5>CSS</h5>
+    <h5>JAVASCRIPT</h5>
+
+    <script>
+        $(document).ready(function(){
+
+            // - 순수 자바스크립트 방식
+            // document.getElementByTagName("태그명");
+            let p = document.getElementsByTagName("p");
+            // [p, p, p, ....]
+            // p.style.color = "yellow";
+            // > p 는 배열이라 style 속성이 바로 적용 불가
+            for(let i = 0; i <p.length; i++){
+                p[i].style.color = "red";
+            }
+            // > 해당 요소들이 담겨있는 배열에 직접 반복문을 돌려아함
+
+            // - jQuery 방식
+            // $("태그명")
+            $("h5").css("color", "blue");
+            // > 사살 $("h5") 로 선택하면 [h5, h5, h5] 배열 형태로 선택됨
+            // > 내부적으로 반복이 돌면서 모든 요소에 효과가 골고루 들어감!!
+            // (내가 직접 반복을 돌릴 필요가 없다.)
+
+            // * jQuery 의 선택자를 이용해서
+            // 한번에 여러 종류의 태그들도 동시에 선택 가능!!
+            // $("p, h5, h1, #id1").css("backgroundColor", "skyblue");
+
+
+        })
+    </script>
+
+    <br>
+
+    <hr>
+
+    <h3>* 클래스 선택자</h3>
+
+    <p>
+         특정한 클래스 속성을 가진 요소들을 선택하고자 할 때
+    </p>
+
+    <h1 class="item">Class1</h1>
+    <h1 class="item select" >Class2</h1>
+    <h1 class="item select" >Class3</h1>
+
+    <script>
+        $(function (){
+            // - 순사 자바스크립트 방식
+            // document.getElementByClassName("클래스명");
+            let items = document.getElementsByClassName("item");
+            // [h1, h1, h1]
+
+            for(let i =0; i <items.length; i++){
+                items[i].style.color = "orange";
+                items[i].onclick = function(){
+                    console.log("클릭됨");
+                }
+            }
+            // - jQuery 방식
+            // $(". 클래스명")
+            $(".select").css("backgroundColor", "lightgray");
+            $(".select").click(function(){
+                alert("클릭됨");
+            })
+        });
+        // > .click() : 클릭 이벤트와 관련된 기능 컨트롤
+        // * jQuery 선택자를 이용할 수 있는 구문이 있긴 하다!!
+        // document.querySelector(CSS선택자)
+        // 또는 
+        // documet.querySeclectorAll("css선택자")
+        document.querySelector("#id2").style.color= "purple";
+        document.querySelector(".item").style.color = "blue";
+        // > 단, querySeclector 를 이용해서 한번에 여러개를 선택한 경우
+        // 해당 선택자를 만족하는 첫번째 요소만 선택됨!!
+
+        let arr = document.querySelectorAll(".item");
+        // [h1, h1, h1]
+        for(let i =0; i< arr.length; i++){
+            arr[i].style.backgroundColor = "red";
+        }
+
+
+        
+    </script>
+
+    <!-- 
+        * 요소 선택 방법
+                순수 자바스크립트 방식                   |     jQuery 방식
+
+================================================================================================
+        document.getElementById("아이디명")             | $("#아이디명")
+        document.getELementByTagName("태그명")          | $("태그명")
+        document.getElementsByClassName("클래스명")     | $(".클래스명")
+        > document.querySeclector, document.querySeclectorAll 도 가능        
+
+        * 선택된 요소에 속성값을 변경하고자 할 때 (효과 부여)
+                순수 자바 스크립방식                    |       jQuery 방식
+=======================================================================================
+        선택된 요소 객체의 속성에 직접 접근              |  메소드를 호출
+        스타일 | .style.스타일속성명 = "변경할값";      |  .css("스타일속성명", "변경할속성명")
+        내용   | .innerHTML = "변경할값";              |  .html("변경할값");
+        이벤트 | .on이벤트명 = function() {};          |  .이벤트명(function(){});
+                (이벤트속성명)
+    > jQuery 방식의 메소드들은 자바로 따지면 속성값을 대입해주는
+    setter 메소드의 역할이라고 보면 됨!!                
+    -->
+
+</body>
+</html>
